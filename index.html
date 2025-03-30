@@ -1,27 +1,364 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global News Network</title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            background: #222;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .social-icons a {
+            color: #fff;
+            margin-left: 15px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: #d32f2f;
+            padding: 15px 0;
+        }
+        
+        .main-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-menu li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 15px;
+            font-weight: 500;
+        }
+        
+        .main-menu li a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            color: #fff;
+            font-size: 24px;
+        }
+        
+        /* Featured Story */
+        .featured-story {
+            display: flex;
+            margin: 30px 0;
+            gap: 30px;
+        }
+        
+        .featured-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        .category-label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #d32f2f;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        
+        .featured-content {
+            flex: 1;
+        }
+        
+        .featured-content h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .featured-content p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .meta {
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .meta span {
+            margin-right: 15px;
+        }
+        
+        /* News Grid */
+        .section-title {
+            font-size: 24px;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        
+        .news-card {
+            border: 1px solid #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .news-card-content {
+            padding: 15px;
+        }
+        
+        .news-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .news-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .news-card .meta {
+            margin-top: 10px;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: #f5f5f5;
+            padding: 40px 0;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 10px;
+        }
+        
+        .newsletter p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .newsletter form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+        
+        .newsletter button {
+            background: #d32f2f;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: #222;
+            color: #fff;
+            padding: 40px 0 0;
+        }
+        
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #bbb;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .footer-column a {
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-bottom p {
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        .footer-bottom ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .footer-bottom li {
+            margin-left: 20px;
+        }
+        
+        .footer-bottom a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        /* Ad Styles */
+        .ad-container {
+            margin: 25px 0;
+            text-align: center;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .ad-label {
+            display: block;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-columns {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-story {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-columns {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-bottom ul {
+                margin-top: 15px;
+            }
+            
+            .footer-bottom li {
+                margin: 0 10px;
+            }
+        }
+    </style>
+    
 </head>
 <body>
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="container">
-            <span class="date-time" id="datetime"></span>
+            <span class="date-time" id="datetime">Monday, June 5, 2023 | 10:30 AM</span>
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -31,7 +368,20 @@
         </div>
     </div>
 
-  
+    <!-- Header Ad -->
+    <div class="ad-container">
+        <span class="ad-label">Advertisement</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3940256099942544"
+             data-ad-slot="2935401910"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="container">
@@ -50,32 +400,17 @@
         </div>
     </nav>
 
-       <!-- Main Content -->
+    <!-- Main Content -->
     <main class="container">
         <!-- Featured Story -->
         <section class="featured-story">
             <div class="featured-image">
                 <img src="images/featured.jpg" alt="Featured News">
-                <div class="category-label politics">Politics</div>
+                <div class="category-label">Politics</div>
             </div>
             <div class="featured-content">
-                <h2 id="featuredTitle">Global Leaders Meet to Discuss Climate Change</h2>
-                <p id="featuredExcerpt">World leaders gathered at the annual climate summit to address pressing environmental concerns and set new targets for carbon emissions.</p>
-                <a href="article.html?id=1" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
-                <div class="meta">
-                    <span><i class="far fa-user"></i> John Smith</span>
-                    <span><i class="far fa-clock"></i> 2 hours ago</span>
-                </div>
-            </div>
-        </section> 
- <section class="featured-story">
-            <div class="featured-image">
-                <img src="images/Movie-1.webp" alt="Featured News">
-                <div class="category-label politics">Politics</div>
-            </div>
-            <div class="featured-content">
-                <h2 id="featuredTitle">Global Leaders Meet to Discuss Climate Change</h2>
-                <p id="featuredExcerpt">World leaders gathered at the annual climate summit to address pressing environmental concerns and set new targets for carbon emissions.</p>
+                <h2>Global Leaders Meet to Discuss Climate Change</h2>
+                <p>World leaders gathered at the annual climate summit to address pressing environmental concerns and set new targets for carbon emissions reduction in the coming decade.</p>
                 <a href="article.html?id=1" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
                 <div class="meta">
                     <span><i class="far fa-user"></i> John Smith</span>
@@ -84,12 +419,126 @@
             </div>
         </section>
 
+        <!-- In-Content Ad -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3940256099942544"
+                 data-ad-slot="7857471910"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="featured-story">
+            <div class="featured-image">
+                <img src="https://via.placeholder.com/800x450" alt="Featured News">
+                <div class="category-label">Entertainment</div>
+            </div>
+            <div class="featured-content">
+                <h2>Summer Blockbuster Breaks Box Office Records</h2>
+                <p>The highly anticipated superhero movie has surpassed all expectations, earning over $300 million in its opening weekend worldwide.</p>
+                <a href="article.html?id=2" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+                <div class="meta">
+                    <span><i class="far fa-user"></i> Sarah Johnson</span>
+                    <span><i class="far fa-clock"></i> 4 hours ago</span>
+                </div>
+            </div>
+        </section>
 
         <!-- News Grid -->
         <section class="news-grid">
             <h2 class="section-title">Latest News</h2>
-            <div class="grid-container" id="newsGrid">
-                <!-- News cards will be inserted here by JavaScript -->
+            
+            <!-- In-Article Ad -->
+            <div class="ad-container">
+                <span class="ad-label">Advertisement</span>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-3940256099942544"
+                     data-ad-slot="9876543210"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="grid-container">
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/400x250" alt="News Thumbnail">
+                    <div class="news-card-content">
+                        <h3>Tech Giant Unveils New Smartphone</h3>
+                        <p>The latest flagship device features breakthrough camera technology and all-day battery life.</p>
+                        <div class="meta">
+                            <span><i class="far fa-user"></i> Tech Reporter</span>
+                            <span><i class="far fa-clock"></i> 6 hours ago</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/400x250" alt="News Thumbnail">
+                    <div class="news-card-content">
+                        <h3>Stock Market Reaches All-Time High</h3>
+                        <p>Investors celebrate as major indices surge following positive economic reports.</p>
+                        <div class="meta">
+                            <span><i class="far fa-user"></i> Financial Analyst</span>
+                            <span><i class="far fa-clock"></i> 8 hours ago</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/400x250" alt="News Thumbnail">
+                    <div class="news-card-content">
+                        <h3>National Team Advances to Finals</h3>
+                        <p>Dramatic last-minute goal secures spot in championship match after decade-long drought.</p>
+                        <div class="meta">
+                            <span><i class="far fa-user"></i> Sports Editor</span>
+                            <span><i class="far fa-clock"></i> 10 hours ago</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/400x250" alt="News Thumbnail">
+                    <div class="news-card-content">
+                        <h3>Breakthrough in Cancer Research</h3>
+                        <p>Scientists discover promising new treatment approach with fewer side effects.</p>
+                        <div class="meta">
+                            <span><i class="far fa-user"></i> Health Correspondent</span>
+                            <span><i class="far fa-clock"></i> 12 hours ago</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/400x250" alt="News Thumbnail">
+                    <div class="news-card-content">
+                        <h3>New Education Reform Bill Proposed</h3>
+                        <p>Legislation aims to reduce student debt and increase access to vocational training.</p>
+                        <div class="meta">
+                            <span><i class="far fa-user"></i> Political Reporter</span>
+                            <span><i class="far fa-clock"></i> 14 hours ago</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/400x250" alt="News Thumbnail">
+                    <div class="news-card-content">
+                        <h3>Travel Industry Sees Record Summer</h3>
+                        <p>Airports report highest passenger numbers since pandemic began as restrictions ease.</p>
+                        <div class="meta">
+                            <span><i class="far fa-user"></i> Travel Writer</span>
+                            <span><i class="far fa-clock"></i> 16 hours ago</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -103,6 +552,20 @@
             </form>
         </section>
     </main>
+
+    <!-- Footer Ad -->
+    <div class="ad-container">
+        <span class="ad-label">Advertisement</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3940256099942544"
+             data-ad-slot="9871234560"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -151,12 +614,28 @@
         </div>
     </footer>
 
-    <script src="js/news-data.js"></script>
-    <script src="js/main.js"></script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
+    <script>
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update every minute
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.main-menu').classList.toggle('show');
+        });
+        
+        // Newsletter form submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
